@@ -1,4 +1,9 @@
 language: cpp
 
+branches:
+    only:
+        -gh-pages
+        -/.*/
+
 script:
     return 0;
