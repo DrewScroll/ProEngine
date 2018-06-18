@@ -2,8 +2,7 @@ language: cpp
 
 branches:
     only:
-        -gh-pages
-        -/.*/
+        -master
 
 script:
     return 0;
