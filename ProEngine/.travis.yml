@@ -1,8 +1,4 @@
 language: cpp
 
-branches:
-    only:
-        -master
-
 script:
     return 0;
