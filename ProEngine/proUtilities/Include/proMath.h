@@ -1,17 +1,18 @@
 #pragma once
 #include "proPrerequisitesUtilities.h"
 #define M_PI 3.14159265359
+#define M_EXP 2.71828182845905
 
 namespace proEngine {
   namespace Math {
 
     template <typename T>
-     float abs(T n) {
-       if (n < 0) {
-         return n * -1;
-       }
-       return n;
-     };
+    float abs(T n) {
+    if (n < 0) {
+        return n * -1;
+      }
+      return n;
+    };
 
      template <typename T>
       float round(T n) {
@@ -19,7 +20,7 @@ namespace proEngine {
         if (n < 0) {
           temp1 = n + 1;
           while (temp1 < -1) {
-            temp1 = n + 1;
+            temp1 = temp1 + 1;
           }
           if (temp1 > -0.5) {
             Res = n - temp1;
@@ -29,10 +30,13 @@ namespace proEngine {
             Res = n + temp2;
           }
         }
+        else if (n == 0) {
+          return 0;
+        }
         else {
           temp1 = n - 1;
           while (temp > 1) {
-            temp1 = n - 1;
+            temp1 = temp1 - 1;
           }
           if (temp1 < 0.5) {
             Res = n - temp1;
@@ -44,18 +48,63 @@ namespace proEngine {
         }
         return Res;
      };
+
+     template <typename T>
+     float floor(T n) {
+        float Res = 0, temp = 0;
+        if (n < 0) {
+          temp = n + 1;
+          while (n < -1) {
+            temp = temp + 1;
+          }
+          return n - (1 + temp);
+        }
+        if else(n == 0) {
+          return 0;
+        }
+        else {
+          temp = n - 1;
+          while (temp > 1) {
+            temp = temp - 1;
+          }
+          return n - temp;
+        }
+      };
+
+     template <typename T>
+     float ceil(T n) {
+       float Res = 0, temp = 0;
+       if (n < 0) {
+         temp = n + 1;
+         while (n < -1) {
+           temp = temp + 1;
+         }
+         return n - temp;
+       }
+       if else(n == 0) {
+         return 0;
+       }
+       else {
+         temp = n - 1;
+         while (temp > 1) {
+           temp = temp - 1;
+         }
+         return n + (1 - temp);
+       }
+     };
      
     template <typename T>
-    T&min(T& a, T& b) {
+     T&min(T& a, T& b) {
       return !(b < a) ? a : b;
     }
+
     template <typename T>
-    T& max(T& a, T& b) {
+     T& max(T& a, T& b) {
       return (a < b) ? b : a;
     }
 
     template<typename T>
-    T& clamp(T& v, T& lo, T&hi) {
+     T& clamp(T& v, T& lo, T&hi) {
       return assert(!std::less<T>(hi, lo)), std::less<T>(v, lo) ? lo : std::less<T>(hi, v) ? hi : v;
     };
 
@@ -91,7 +140,38 @@ namespace proEngine {
     };
 
     template <typename T>
-    float pow(T base, T exp) {
+    double logn(double Power) {
+      double N, P, L, R, A;
+      P = Power;
+      N = 0.0;
+      while ( P>= M_EXP) {
+        P /= E;
+        N++;
+      }
+      N += (P / M_EXP);
+      P = Power;
+      do {
+        A = N;
+        L = (P / (exp(N - 1.0)));
+        R = ((N - 1.0)*M_EXP);
+        N = ((L + R) / M_EXP);
+      } while (N != A);
+      return N;
+    }
+
+    template <typename T>
+    double log2(double N) {
+      return (logn(N) / 0.69314718055995);
+    }
+
+    template <typename T>
+    double log10(double N) {
+      return (logn(N) / 2.30258509299405);
+    }
+
+    template <typename T>
+    float pow(T base, T power) {
+      return exp(power*logn(base));
     };
 
     template <typenname T>
