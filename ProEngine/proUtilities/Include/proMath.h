@@ -284,5 +284,15 @@ namespace proEngine {
         }((Res - temp) > 0.01 || (Res - temp) < -0.00000001);
         return Res;
       };
+
+       template <typename T>
+       T lerp(T A, T B, float t) {
+         return (B > A) ? (((B - A)*t) + A) : (((A - B)*t) + B);
+       };
+
+       template <typename T>
+       T slerp(T A, T B, float t) {
+         return (A*pow(B / A, t));
+       }
   }
 }
