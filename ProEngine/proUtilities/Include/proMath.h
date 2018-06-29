@@ -1,10 +1,11 @@
 #pragma once
 #include "proPrerequisitesUtilities.h"
-#define M_PI 3.14159265359
-#define M_EXP 2.71828182845905
 
 namespace proEngine {
   namespace Math {
+
+    static const float kPi;
+    static const float kEuler;
 
     template <typename T>
     float abs(T n) {
@@ -122,7 +123,7 @@ namespace proEngine {
      };
 
     template<typename T>
-    float exp(T n) {
+    T exp(T n) {
       float Res = 0, temp = 0;
       int i = 0;
       do {
@@ -140,37 +141,37 @@ namespace proEngine {
     };
 
     template <typename T>
-    double logn(double Power) {
+    T logn(T Power) {
       double N, P, L, R, A;
       P = Power;
       N = 0.0;
-      while ( P>= M_EXP) {
+      while ( P>= kEuler) {
         P /= E;
         N++;
       }
-      N += (P / M_EXP);
+      N += (P / kEuler);
       P = Power;
       do {
         A = N;
         L = (P / (exp(N - 1.0)));
-        R = ((N - 1.0)*M_EXP);
-        N = ((L + R) / M_EXP);
+        R = ((N - 1.0)*kEuler);
+        N = ((L + R) / kEuler);
       } while (N != A);
       return N;
     }
 
     template <typename T>
-    double log2(double N) {
+    T log2(T N) {
       return (logn(N) / 0.69314718055995);
     }
 
     template <typename T>
-    double log10(double N) {
+    T log10(T N) {
       return (logn(N) / 2.30258509299405);
     }
 
     template <typename T>
-    float pow(T base, T power) {
+    T pow(T base, T power) {
       return exp(power*logn(base));
     };
 
@@ -253,13 +254,13 @@ namespace proEngine {
 
      template <typename T>
       float acos(T n) {
-       float Res = (M_PI/2);
+       float Res = (kPi /2);
        return Res - asin(n);
      };
 
       template <typename T>
       float fastAcos(T n) {
-        float Res = (M_PI / 2);
+        float Res = (kPi / 2);
         return Res - fastAsin(n);
       };
 
